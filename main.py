@@ -10,6 +10,13 @@ def add_new_todo():
     st.session_state.new_todo = ""
 
 
+def complete_todo(todo):
+    todos = functions.get_todos(FILE_PATH)
+    todos.remove(todo)
+    functions.save_todos(FILE_PATH, todos)
+    del st.session_state[todo]
+
+
 st.title("Todos Web App")
 st.markdown("Here you can organise your todos.")
 st.text_input(label=" ", placeholder="Enter your todo", key="new_todo", on_change=add_new_todo)
@@ -17,7 +24,8 @@ st.text_input(label=" ", placeholder="Enter your todo", key="new_todo", on_chang
 todos = functions.get_todos(FILE_PATH)
 
 for todo in todos:
-    st.checkbox(todo)
+    st.checkbox(todo, key=todo, on_change=complete_todo, args=(todo,))
+
 
 
 

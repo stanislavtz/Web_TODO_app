@@ -1,4 +1,4 @@
 Relax
-Sleep
 Walk
-Play
+Learn streamlit
+Swim
