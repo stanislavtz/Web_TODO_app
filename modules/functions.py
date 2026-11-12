@@ -18,18 +18,7 @@ def add_todo(file_path, todo_to_add):
         file.write(todo_to_add.capitalize())
 
 
-def display_todos(todos_list):
-    """ Reads all the todos from a file and displays them on the screen. """
-    formatted_todos = [f"{index+1} - {todo}" for index, todo in enumerate(todos_list)]
-    return formatted_todos
-
-
 def save_todos(file_path, todos_list):
     """ Saves all the todos in the file. """
     with open(file_path, "w") as file:
         file.writelines(todos_list)
-
-
-def print_no_todos():
-    """ Prints \"No todos available.\" """
-    return "No todos available!"

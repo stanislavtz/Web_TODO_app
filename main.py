@@ -73,12 +73,16 @@ st.text_input(label=" ", placeholder="Enter your todo", key="new_todo", on_chang
 
 todos = functions.get_todos(FILE_PATH)
 
-for todo in todos:
-    col_todo, col_edit, col_complete = st.columns([6, 1, 1.4])
-    with col_todo:
-        st.checkbox(todo, key=todo, on_change=select_todo, args=(todo,))
-    with col_edit:
-        st.button("Edit", key=f"edit_{todo}", on_click=edit_todo, args=(todo,),
-                  disabled=st.session_state.editing != todo)
-    with col_complete:
-        st.button("Complete", key=f"complete_{todo}", on_click=complete_todo, args=(todo,))
+if not todos:
+    st.text("No todos available")
+else:
+    for todo in todos:
+        # A new set of columns per todo, so the checkbox and its buttons share one row
+        col_todo, col_edit, col_complete = st.columns([6, 1, 1.4], vertical_alignment="center")
+        with col_todo:
+            st.checkbox(todo, key=todo, on_change=select_todo, args=(todo,))
+        with col_edit:
+            st.button("Edit", key=f"edit_{todo}", on_click=edit_todo, args=(todo,),
+                      disabled=st.session_state.editing != todo)
+        with col_complete:
+            st.button("Complete", key=f"complete_{todo}", on_click=complete_todo, args=(todo,))
